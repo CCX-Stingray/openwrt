@@ -1049,7 +1049,7 @@ define KernelPackage/bnxt
   KCONFIG:=CONFIG_BNXT
   SUBMENU:=$(NETWORK_DEVICES_MENU)
   FILES:=$(LINUX_DIR)/drivers/net/ethernet/broadcom/bnxt/bnxt_en.ko
-  AUTOLOAD:=$(call AutoLoad,19,bnxt,1)
+  AUTOLOAD:=$(call AutoProbe,bnxt)
 endef
 
 define KernelPackage/bnxt/description

@@ -1,5 +1,7 @@
 #
 # Copyright (C) 2016-2017 Yousong Zhou <yszhou4tech@gmail.com>
+# Copyright (C) 2018 Jianhui Zhao <jianhuizhao329@gmail.com>
+# Copyright (C) 2019 Samik Gupta <samik.gupta@broadcom.com>
 #
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
@@ -7,32 +9,27 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/image.mk
 
-define Device/Default
-  DEVICE_DTS_DIR := $(DTS_DIR)/broadcom
-endef
+DTS_DIR := $(DTS_DIR)/broadcom
 
-define Device/bcm958802a802x
-  DEVICE_DTS := stingray/bcm958802a802x
+define Device/ps225
+	DEVICE_VENDOR := Broadcom
+	DEVICE_MODEL := PS225-HXX
+	DEVICE_DTS_DIR := $(DTS_DIR)/stingray
+	DEVICE_DTS := bcm958802a802x
 endef
-TARGET_DEVICES += bcm958802a802x
+TARGET_DEVICES += ps225
 
-define Image/BuildKernel
-	$(foreach k,$(filter zImage Image,$(KERNELNAME)), \
-		cp $(KDIR)/$(KERNELNAME) $(BIN_DIR)/$(IMG_PREFIX)-$(k) \
+define Image/InstallKernel
+	$(foreach k,$(filter Image,$(KERNELNAME)), \
+		cp $(KDIR)/$(KERNELNAME) $(BIN_DIR)/$(IMG_PREFIX)$(if $(PROFILE_SANITIZED),-$(PROFILE_SANITIZED))-$(k) \
 	)
-	$(foreach d,$(TARGET_DEVICES),cp $(KDIR)/image-$(d).dtb $(BIN_DIR);)
-endef
-
-define Image/Build/Initramfs
-	$(foreach k,$(filter zImage Image,$(KERNELNAME)), \
-		cp $(KDIR)/$(k)-initramfs $(BIN_DIR)/$(IMG_PREFIX)-$(k)-initramfs \
-	)
+	cp $(KDIR)/*.dtb $(BIN_DIR)
 endef
 
 define Image/Build
 	$(call Image/Build/$(1))
 	dd if=$(KDIR)/root.$(1) bs=128k conv=sync | \
-		gzip -9n >$(BIN_DIR)/$(IMG_PREFIX)-root.$(1).gz
+		gzip -9n >$(BIN_DIR)/$(IMG_PREFIX)$(if $(PROFILE_SANITIZED),-$(PROFILE_SANITIZED))-rootfs.$(1).gz
 endef
 
 $(eval $(call BuildImage))
