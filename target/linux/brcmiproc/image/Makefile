@@ -23,7 +23,8 @@ define Image/InstallKernel
 	$(foreach k,$(filter Image,$(KERNELNAME)), \
 		cp $(KDIR)/$(KERNELNAME) $(BIN_DIR)/$(IMG_PREFIX)$(if $(PROFILE_SANITIZED),-$(PROFILE_SANITIZED))-$(k) \
 	)
-	cp $(KDIR)/*.dtb $(BIN_DIR)
+	$(foreach d,$(shell ls $(KDIR)/image-*.dtb),cp $(d) $(patsubst $(KDIR)/image-%,$(BIN_DIR)/$(IMG_PREFIX)$(if $(PROFILE_SANITIZED),-$(PROFILE_SANITIZED))-%,$(d)); \
+	)
 endef
 
 define Image/Build
