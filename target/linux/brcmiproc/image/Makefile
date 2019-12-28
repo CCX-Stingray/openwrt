@@ -6,18 +6,11 @@
 # This is free software, licensed under the GNU General Public License v2.
 # See /LICENSE for more information.
 #
+
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/image.mk
 
 DTS_DIR := $(DTS_DIR)/broadcom
-
-define Device/ps225
-	DEVICE_VENDOR := Broadcom
-	DEVICE_MODEL := PS225-HXX
-	DEVICE_DTS_DIR := $(DTS_DIR)/stingray
-	DEVICE_DTS := bcm958802a802x
-endef
-TARGET_DEVICES += ps225
 
 define Image/InstallKernel
 	$(foreach k,$(filter Image,$(KERNELNAME)), \
@@ -31,5 +24,15 @@ define Image/Build
 	dd if=$(KDIR)/root.$(1) bs=128k conv=sync | \
 		gzip -9n >$(BIN_DIR)/$(IMG_PREFIX)$(if $(PROFILE_SANITIZED),-$(PROFILE_SANITIZED))-rootfs.$(1).gz
 endef
+
+ifeq ($(SUBTARGET),bcm58800)
+define Device/broadcom_ps225-hxx
+	DEVICE_VENDOR := Broadcom
+	DEVICE_MODEL := PS225-HXX
+	DEVICE_DTS_DIR := $(DTS_DIR)/stingray
+	DEVICE_DTS := bcm958802a802x
+endef
+TARGET_DEVICES += broadcom_ps225-hxx
+endif
 
 $(eval $(call BuildImage))
