@@ -1053,7 +1053,7 @@ define KernelPackage/bnxt
 endef
 
 define KernelPackage/bnxt/description
- Kernel modules for Broadcom NetXtreme-C/E Ethernet adapters.
+  Kernel modules for Broadcom NetXtreme-C/E Ethernet adapters.
 endef
 
 $(eval $(call KernelPackage,bnxt))
