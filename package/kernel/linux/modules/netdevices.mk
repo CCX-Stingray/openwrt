@@ -1046,6 +1046,7 @@ $(eval $(call KernelPackage,be2net))
 
 define KernelPackage/bnxt
   TITLE:=Broadcom NetXtreme-C/E driver
+  DEPENDS:=+kmod-hwmon-core
   KCONFIG:=CONFIG_BNXT
   SUBMENU:=$(NETWORK_DEVICES_MENU)
   FILES:=$(LINUX_DIR)/drivers/net/ethernet/broadcom/bnxt/bnxt_en.ko
