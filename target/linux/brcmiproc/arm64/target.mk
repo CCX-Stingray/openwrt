@@ -6,10 +6,10 @@
 # See /LICENSE for more information.
 #
 
-SUBTARGET:=bcm58800
-BOARDNAME:=BCM58800 based boards
+SUBTARGET:=arm64
+BOARDNAME:=64-bit iProc based boards
 KERNELNAME:=Image
 
 define Target/Description
-	Build image for boards based on Broadcom iProc/brcm58800 SoC
+	Build image for boards based on 64-bit Broadcom iProc devices
 endef

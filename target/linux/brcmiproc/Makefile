@@ -12,7 +12,7 @@ ARCH:=aarch64
 BOARD:=brcmiproc
 BOARDNAME:=Broadcom iProc
 FEATURES:=fpu pci rtc usb ext4 targz
-SUBTARGETS:=bcm58800
+SUBTARGETS:=arm64
 MAINTAINER:=Samik Gupta <samik.gupta@broadcom.com>
 
 KERNEL_PATCHVER:=4.19
