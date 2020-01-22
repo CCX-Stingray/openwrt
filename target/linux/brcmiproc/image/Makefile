@@ -25,7 +25,7 @@ define Image/Build
 		gzip -9n >$(BIN_DIR)/$(IMG_PREFIX)$(if $(PROFILE_SANITIZED),-$(PROFILE_SANITIZED))-rootfs.$(1).gz
 endef
 
-ifeq ($(SUBTARGET),bcm58800)
+ifeq ($(SUBTARGET),arm64)
 define Device/broadcom_ps225-hxx
 	DEVICE_VENDOR := Broadcom
 	DEVICE_MODEL := PS225-HXX
